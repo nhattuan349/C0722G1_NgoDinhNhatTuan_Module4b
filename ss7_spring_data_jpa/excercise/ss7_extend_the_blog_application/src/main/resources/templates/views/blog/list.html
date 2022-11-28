@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>Blog</th>
+        <th>Category</th>
+    </tr>
+
+    <tr>
+        <td><a href="http://localhost:8080/category">vào trang blog</a></td>
+        <td><a href="http://localhost:8080/blog">vào trang category</a></td>
+    </tr>
+</table>x
+
+<a href="blog/create">Create new blog</a>
+
+<form th:action="@{/blog}" method="get">
+    <input  th:type="text" name="author">
+    <select class="form-control me-2" th:name="category">
+        <option value="" selected>
+            Choose something
+        </option>
+        <option
+                th:each="item : ${categories}"
+                th:value="${item.name}" th:text="${item.name}">
+        </option>
+    </select>
+    <input  th:type="submit" name="action" value="findByName">
+</form>
+
+<h1>Blogs</h1>
+<table border="1">
+    <tr>
+        <th>Last author</th>
+        <th>Last price</th>
+        <th>Last status</th>
+        <th>category</th>
+
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="blog : ${blogs}">
+        <tr>
+            <td th:text="${blog.author}"></td>
+            <td th:text="${blog.price}"></td>
+            <td th:text="${blog.status}"></td>
+            <td th:text="${blog.category.getName()}"></td>
+            <td><a th:href="@{/blog/edit/__${blog.id}__ }">Edit</a></td>
+            <td><a th:href="@{/blog/delete/__${blog.id}__ }">Delete</a></td>
+        </tr>
+    </th:block>
+
+
+
+    <div>
+        <a class="btn btn-dark text-white"
+           th:href="@{'/blog'(page=${blogs.number - 1},author=${author}, categories =${categories})}"
+           th:if="${blogs.hasPrevious()}">Previous</a>
+
+        <span class="btn btn-dark text-white" th:text="${blogs.number + 1}"></span>
+        <span class="btn btn-dark text-white" th:text="${blogs.totalPages}"></span>
+
+        <a class="btn btn-dark text-white"
+           th:href="@{'/blog'(page = ${blogs.number + 1},author=${author}, categories =${categories})}"
+           th:if="${blogs.hasNext()}">Next</a>
+    </div>
+</table>
+</body>
+</html>
