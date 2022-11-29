@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete song</title>
+</head>
+<body>
+<h1>Delete song</h1>
+<h2>Are you sure?</h2>
+<p>
+    <a href="/song">song list</a>
+</p>
+<form th:action="@{/song/delete}" th:object="${song}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td th:text="${song.name}"></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td th:text="${song.performing}"></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td th:text="${song.songType}"></td>
+        </tr>
+
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Delete category"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

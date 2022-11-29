@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>song</th>
+    </tr>
+
+    <tr>
+        <td><a href="http://localhost:8080/song">vào trang user</a></td>
+    </tr>
+</table>
+
+<a href="song/create">Create new blog</a>
+
+<form th:action="@{/song}" method="get">
+    <input  th:type="text" name="name">
+    <input  th:type="submit" name="action" value="findByName">
+</form>
+
+<h1>Blogs</h1>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>name</th>
+        <th>performing</th>
+        <th>songType</th>
+
+
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="song : ${songs}">
+        <tr>
+            <td th:text="${song.id}"></td>
+            <td th:text="${song.name}"></td>
+            <td th:text="${song.performing}"></td>
+            <td th:text="${song.songType}"></td>
+            <td><a th:href="@{/song/edit/__${song.id}__ }">Edit</a></td>
+            <td><a th:href="@{/song/delete/__${song.id}__ }">Delete</a></td>
+        </tr>
+    </th:block>
+
+
+
+    <div>
+        <a class="btn btn-dark text-white"
+           th:href="@{'/song'(page=${songs.number - 1})}"
+           th:if="${songs.hasPrevious()}">Previous</a>
+
+        <span class="btn btn-dark text-white" th:text="${songs.number + 1}"></span>
+        <span class="btn btn-dark text-white" th:text="${songs.totalPages}"></span>
+
+        <a class="btn btn-dark text-white"
+           th:href="@{'/song'(page = ${songs.number + 1})}"
+           th:if="${songs.hasNext()}">Next</a>
+    </div>
+</table>
+</body>
+</html>

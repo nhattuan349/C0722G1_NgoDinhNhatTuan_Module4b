@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>user</th>
+    </tr>
+
+    <tr>
+        <td><a href="http://localhost:8080/user">vào trang user</a></td>
+    </tr>
+</table>
+
+<a href="user/create">Create new blog</a>
+
+<form th:action="@{/user}" method="get">
+    <input  th:type="text" name="firstName">
+    <input  th:type="text" name="lastName">
+    <input  th:type="submit" name="action" value="findByName">
+</form>
+
+<h1>Blogs</h1>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>firstName</th>
+        <th>lastName</th>
+        <th>phoneNumber</th>
+        <th>age</th>
+        <th>email</th>
+
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="user : ${users}">
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.email}"></td>
+
+            <td><a th:href="@{/user/edit/__${user.id}__ }">Edit</a></td>
+            <td><a th:href="@{/user/delete/__${user.id}__ }">Delete</a></td>
+        </tr>
+    </th:block>
+
+
+
+    <div>
+        <a class="btn btn-dark text-white"
+           th:href="@{'/user'(page=${users.number - 1})}"
+           th:if="${users.hasPrevious()}">Previous</a>
+
+        <span class="btn btn-dark text-white" th:text="${users.number + 1}"></span>
+        <span class="btn btn-dark text-white" th:text="${users.totalPages}"></span>
+
+        <a class="btn btn-dark text-white"
+           th:href="@{'/user'(page = ${users.number + 1})}"
+           th:if="${users.hasNext()}">Next</a>
+    </div>
+</table>
+</body>
+</html>
