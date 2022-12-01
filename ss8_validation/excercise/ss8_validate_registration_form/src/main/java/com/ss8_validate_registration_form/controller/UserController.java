@@ -32,34 +32,61 @@ public class UserController {
         return modelAndView;
     }
 
+//    @GetMapping("/create")
+//    public ModelAndView showFormCreate() {
+//        ModelAndView modelAndView = new ModelAndView("views/user/create");
+//        modelAndView.addObject("userDto", new UserDto());
+//        return modelAndView;
+//    }
     @GetMapping("/create")
     public ModelAndView showFormCreate() {
-        ModelAndView modelAndView = new ModelAndView("views/user/create");
+        ModelAndView modelAndView = new ModelAndView(("views/user/create"));
         modelAndView.addObject("userDto", new UserDto());
         return modelAndView;
     }
 
     @PostMapping("/create")
     public ModelAndView saveUser(@Validated @ModelAttribute UserDto userDto,
-                                    BindingResult bindingResult,
-                                    @PageableDefault(value = 5) Pageable pageable,
-                                    RedirectAttributes redirectAttributes
-    ) {
-        new UserDto().validate(userDto, bindingResult);
-        if (bindingResult.hasFieldErrors()) {
-
+                        BindingResult bindingResult,
+                        @PageableDefault(value = 5) Pageable pageable,
+                        RedirectAttributes redirectAttributes
+    ){
+        new UserDto().validate(userDto,bindingResult);
+        if (bindingResult.hasFieldErrors()){
             ModelAndView modelAndView = new ModelAndView("views/user/create");
             return modelAndView;
-        } else {
+        }else {
             User user = new User();
             BeanUtils.copyProperties(userDto, user);
             userService.save(user);
-            ModelAndView modelAndView = new ModelAndView("redirect:/user");
-            redirectAttributes.addFlashAttribute("message", "Add new succsessfuly");
-            return modelAndView;
+            ModelAndView modelAndView = new ModelAndView(("redirect:/user"));
+            redirectAttributes.addFlashAttribute("message","Add new successful");
+            return  modelAndView;
         }
-
     }
+
+
+//    @PostMapping("/create")
+//    public ModelAndView saveUser(@Validated @ModelAttribute UserDto userDto,
+//                                    BindingResult bindingResult,
+//                                    @PageableDefault(value = 5) Pageable pageable,
+//                                    RedirectAttributes redirectAttributes
+//    ) {
+//        new UserDto().validate(userDto, bindingResult);
+//        if (bindingResult.hasFieldErrors()) {
+//
+//            ModelAndView modelAndView = new ModelAndView("views/user/create");
+//            return modelAndView;
+//        } else {
+//            User user = new User();
+//            BeanUtils.copyProperties(userDto, user);
+//            userService.save(user);
+//            ModelAndView modelAndView = new ModelAndView("redirect:/user");
+//            redirectAttributes.addFlashAttribute("message", "Add new succsessfuly");
+//            return modelAndView;
+//        }
+//
+//    }
 
     @GetMapping("/edit/{id}")
     public ModelAndView showFormEdit(@PathVariable int id) {

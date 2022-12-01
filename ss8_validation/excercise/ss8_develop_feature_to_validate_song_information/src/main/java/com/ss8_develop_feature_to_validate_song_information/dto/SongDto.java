@@ -3,10 +3,15 @@ package com.ss8_develop_feature_to_validate_song_information.dto;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.validation.constraints.NotBlank;
+
 public class SongDto implements Validator {
     private int id;
+    @NotBlank(message = "Không được để trống")
     private String name;
+    @NotBlank(message = "Không được để trống")
     private String performing;
+    @NotBlank(message = "Không được để trống")
     private String songType;
 
     public SongDto() {

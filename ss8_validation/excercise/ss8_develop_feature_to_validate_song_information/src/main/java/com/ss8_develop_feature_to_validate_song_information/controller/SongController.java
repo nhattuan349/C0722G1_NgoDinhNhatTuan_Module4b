@@ -31,8 +31,14 @@ public class SongController {
         return modelAndView;
     }
 
+//    @GetMapping("/create")
+//    public ModelAndView showFormCreate() {
+//        ModelAndView modelAndView = new ModelAndView("views/song/create");
+//        modelAndView.addObject("songDto", new SongDto());
+//        return modelAndView;
+//    }
     @GetMapping("/create")
-    public ModelAndView showFormCreate() {
+    public ModelAndView showFormCreate(){
         ModelAndView modelAndView = new ModelAndView("views/song/create");
         modelAndView.addObject("songDto", new SongDto());
         return modelAndView;
@@ -43,22 +49,41 @@ public class SongController {
                                  BindingResult bindingResult,
                                  @PageableDefault(value = 5) Pageable pageable,
                                  RedirectAttributes redirectAttributes
-    ) {
-        new SongDto().validate(songDto, bindingResult);
-        if (bindingResult.hasFieldErrors()) {
-
-            ModelAndView modelAndView = new ModelAndView("views/song/create");
-            return modelAndView;
-        } else {
-            Song song = new Song();
-            BeanUtils.copyProperties(songDto, song);
-            songService.save(song);
-            ModelAndView modelAndView = new ModelAndView("redirect:/song");
-            redirectAttributes.addFlashAttribute("message", "Add new succsessfuly");
-            return modelAndView;
-        }
-
+    ){
+      new SongDto().validate(songDto, bindingResult);
+      if (bindingResult.hasFieldErrors()){
+          ModelAndView modelAndView = new ModelAndView("views/song/create");
+          return modelAndView;
+      }else {
+          Song song = new Song();
+          BeanUtils.copyProperties(songDto, song);
+          songService.save(song);
+          ModelAndView modelAndView = new ModelAndView(("redirect:/song"));
+          redirectAttributes.addFlashAttribute("message","Add new successfully");
+          return modelAndView;
+      }
     }
+
+
+//    @PostMapping("/create")
+//    public ModelAndView saveSong(@Validated @ModelAttribute SongDto songDto,
+//                                 BindingResult bindingResult,
+//                                 @PageableDefault(value = 5) Pageable pageable,
+//                                 RedirectAttributes redirectAttributes
+//    ) {
+//        new SongDto().validate(songDto, bindingResult);
+//        if (bindingResult.hasFieldErrors()) {
+//            ModelAndView modelAndView = new ModelAndView("views/song/create");
+//            return modelAndView;
+//        } else {
+//            Song song = new Song();
+//            BeanUtils.copyProperties(songDto, song);
+//            songService.save(song);
+//            ModelAndView modelAndView = new ModelAndView("redirect:/song");
+//            redirectAttributes.addFlashAttribute("message", "Add new succsessfuly");
+//            return modelAndView;
+//        }
+//    }
 
     @GetMapping("/edit/{id}")
     public ModelAndView showFormEdit(@PathVariable int id) {
