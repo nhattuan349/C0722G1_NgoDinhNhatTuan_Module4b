@@ -16,8 +16,8 @@ import org.w3c.dom.ls.LSOutput;
 import java.util.List;
 
 @Controller
-@RequestMapping("/book")
-public class BookController {
+@RequestMapping("/oder")
+public class OderController {
 
 
     @Autowired
@@ -35,7 +35,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}/oder")
-    public String oder(@PathVariable int id, RedirectAttributes redirect) throws Exception {
+    public String saveOder(@PathVariable int id, RedirectAttributes redirect) throws Exception {
 
         Book book = bookService.findByIdBook(id);
 
@@ -62,11 +62,11 @@ public class BookController {
 
         redirect.addFlashAttribute("mess", "Oder thành công mã của bạn :" + oder.getCode());
 
-        return "redirect:/book";
+        return "redirect:/oder";
     }
 
-    @PostMapping("update")
-    public String pay(@RequestParam(value = "pay") long code) {
+    @PostMapping("resend")
+    public String savePay(@RequestParam(value = "pay") long code) {
         Book book = bookService.findByCode(code);
         Oder oder = oderService.findByCode(code);
         if (book == null) {
@@ -77,7 +77,7 @@ public class BookController {
             oder.setCode(0);
             oderService.save(oder);
         }
-        return "redirect:/book";
+        return "redirect:/oder";
     }
 
     @ExceptionHandler(Exception.class)
