@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<th:block th:if="${message}">
+    <p style="color: white; font-family: 'Segoe UI';font-size: large" th:text="${message}"></p>
+</th:block>
+<form action="/login" method="post">
+    <table>
+        <tr>
+            <td> Ten dang nhap</td>
+            <td>
+                <input type="text" name="username">
+            </td>
+        </tr>
+
+        <tr>
+            <td> Mat khau</td>
+            <td>
+                <input type="text" name="password">
+            </td>
+        </tr>
+
+        <tr>
+            <td> Duy tri dang nhap</td>
+            <td>
+                <input type="checkbox" name="remember-me">
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <button type="submit">Dang nhap</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a style="text-decoration: none" th:href="@{/user/show-form-create}">Thêm mới tài khoản</a>
+            </td>
+        </tr>
+
+    </table>
+</form>
+
+</body>
+</html>
