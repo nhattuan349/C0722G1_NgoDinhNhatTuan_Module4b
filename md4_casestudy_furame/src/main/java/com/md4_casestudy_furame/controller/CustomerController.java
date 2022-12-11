@@ -71,6 +71,50 @@ public class CustomerController {
         }
     }
 
+    @GetMapping("/show-form-edit/{id}")
+    public ModelAndView showEditCustomer(@PathVariable int id){
+        Optional<Customer> customer =customerService.findById(id);
+        CustomerDto customerDto = new CustomerDto();
+        BeanUtils.copyProperties(customer.get(),customerDto);
+
+        if(customer.isPresent()){
+            ModelAndView modelAndView = new ModelAndView("views/customer/edit");
+            modelAndView.addObject("customerTypes", customerTypeService.findAll());
+            modelAndView.addObject("customerDto",customerDto);
+            return modelAndView;
+        }else {
+            return  new ModelAndView("views/customer/error.404");
+        }
+    }
+
+    @PostMapping("/edit")
+    public ModelAndView updateCustomer(@Validated @ModelAttribute CustomerDto customerDto,
+                                       BindingResult bindingResult,
+                                       @PageableDefault Pageable pageable,
+                                       RedirectAttributes redirectAttributes){
+        new CustomerDto().validate(customerDto,bindingResult);
+        if (bindingResult.hasFieldErrors()){
+            ModelAndView modelAndView = new ModelAndView("views/customer/edit");
+            return modelAndView;
+        }else{
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(customerDto,customer);
+            customer.setStatus(0);
+            customerService.save(customer);
+            ModelAndView modelAndView = new ModelAndView("redirect:/customer");
+            redirectAttributes.addFlashAttribute("message","Add new successfully");
+            return modelAndView;
+        }
+    }
+
+    @GetMapping("/delete")
+    public ModelAndView delete(@RequestParam int id,
+                               RedirectAttributes redirectAttributes){
+        ModelAndView modelAndView = new ModelAndView("redirect:/customer");
+        customerService.remove(id);
+        return modelAndView;
+
+    }
 
 
 }
