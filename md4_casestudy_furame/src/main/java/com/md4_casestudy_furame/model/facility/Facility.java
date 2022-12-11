@@ -13,7 +13,7 @@ public class Facility {
     private String name;
     private String area;
     private String cost;
-    private String max_people;
+    private String maxPeople;
     private String standardRoom;
     private String descriptionOtherConvenience;
     private String poolArea;
@@ -35,21 +35,24 @@ public class Facility {
     public Facility() {
     }
 
-    public Facility(Integer id, String name, String area,
-                    String cost, String max_people, String standardRoom,
-                    String descriptionOtherConvenience, String poolArea,
-                    String numberOfFloors, String facilityFree, Integer status) {
+    public Facility(Integer id, String name, String area, String cost,
+                    String maxPeople, String standardRoom, String descriptionOtherConvenience,
+                    String poolArea, String numberOfFloors, String facilityFree, Integer status,
+                    FacilityType facilityType, RentType rentType, Set<Contract> contracts) {
         this.id = id;
         this.name = name;
         this.area = area;
         this.cost = cost;
-        this.max_people = max_people;
+        this.maxPeople = maxPeople;
         this.standardRoom = standardRoom;
         this.descriptionOtherConvenience = descriptionOtherConvenience;
         this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
         this.facilityFree = facilityFree;
         this.status = status;
+        this.facilityType = facilityType;
+        this.rentType = rentType;
+        this.contracts = contracts;
     }
 
     public Integer getId() {
@@ -84,12 +87,12 @@ public class Facility {
         this.cost = cost;
     }
 
-    public String getMax_people() {
-        return max_people;
+    public String getMaxPeople() {
+        return maxPeople;
     }
 
-    public void setMax_people(String max_people) {
-        this.max_people = max_people;
+    public void setMaxPeople(String maxPeople) {
+        this.maxPeople = maxPeople;
     }
 
     public String getStandardRoom() {
