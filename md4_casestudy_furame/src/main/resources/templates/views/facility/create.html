@@ -46,7 +46,7 @@
         <div class="mb-3">
             <label style="color: #4f2216" >RentType:</label>
 
-            <select class="form-control" aria-describedby="emailHelp" th:field="*{rentType}" onchange="onchangeFacility(this.value)">
+            <select class="form-control" aria-describedby="emailHelp" th:field="*{rentType}" >
                 <option th:each="item : ${rentTypes}"
                         th:value="${item.id}" th:text="${item.name}">
                 </option>
@@ -57,7 +57,7 @@
         <div class="mb-3">
             <label style="color: #4f2216" >Facility type:</label>
 
-            <select class="form-control" aria-describedby="emailHelp" th:field="*{facilityType}">
+            <select class="form-control" aria-describedby="emailHelp" th:field="*{facilityType}" onchange="onchangeFacility(this.value)">
                 <option th:each="item : ${facilityTypes}"
                         th:value="${item.id}" th:text="${item.name}">
                 </option>

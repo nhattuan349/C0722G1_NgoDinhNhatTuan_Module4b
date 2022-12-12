@@ -32,9 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-
-
-
     //    Cấu hình về xác thực  HTTP Basic và phân quyền
     @Override
     protected void configure(HttpSecurity http) throws Exception {

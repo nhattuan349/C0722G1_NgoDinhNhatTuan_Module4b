@@ -20,15 +20,10 @@ public class FacilityDto implements Validator {
     private String cost;
     @NotBlank(message = "không thể để trống")
     private String maxPeople;
-    @NotBlank(message = "không thể để trống")
     private String standardRoom;
-    @NotBlank(message = "không thể để trống")
     private String descriptionOtherConvenience;
-    @NotBlank(message = "không thể để trống")
     private String poolArea;
-    @NotBlank(message = "không thể để trống")
     private String numberOfFloors;
-    @NotBlank(message = "không thể để trống")
     private String facilityFree;
     private Integer status;
     private FacilityType facilityType;

@@ -27,11 +27,8 @@ public interface IFacilityRepository extends JpaRepository<Facility, Integer> {
                                       @Param("facilityType") String facilityType,
                                       @Param("rentType") String rentType);
 
-    @Transactional
     @Modifying
-    @Query(value = "select `facility` " +
-            "set status=1 " +
-            "where id=:id",nativeQuery = true)
-    void delete(int id);
-
+    @Transactional
+    @Query(value = "select `facility`  set status=1 where id=:id", nativeQuery = true)
+    void delete(@Param("id") int id);
 }

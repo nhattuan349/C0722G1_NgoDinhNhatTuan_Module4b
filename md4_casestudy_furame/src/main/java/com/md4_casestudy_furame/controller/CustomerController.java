@@ -113,7 +113,6 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView("redirect:/customer");
         customerService.remove(id);
         return modelAndView;
-
     }
 
 

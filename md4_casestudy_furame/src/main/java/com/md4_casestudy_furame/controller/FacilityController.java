@@ -41,7 +41,7 @@ public class FacilityController {
         modelAndView.addObject("rentType", rentType.orElse(""));
         modelAndView.addObject("facilities", facilityService.findByNameFacility(pageable, name.orElse(""), facilityType.orElse(""), rentType.orElse("")));
         modelAndView.addObject("facilityTypes", facilityTypeService.findAll());
-        modelAndView.addObject("rentTypes",rentTypeService.findAll());
+        modelAndView.addObject("rentTypes", rentTypeService.findAll());
         return modelAndView;
     }
 
@@ -78,4 +78,54 @@ public class FacilityController {
             return modelAndView;
         }
     }
+
+    @GetMapping("show-form-edit/{id}")
+    public ModelAndView showEditFacility(@PathVariable int id) {
+        Optional<Facility> facility = facilityService.findById(id);
+        FacilityDto facilityDto = new FacilityDto();
+        BeanUtils.copyProperties(facility.get(), facilityDto);
+        if (facility.isPresent()) {
+            ModelAndView modelAndView = new ModelAndView("views/facility/edit");
+            modelAndView.addObject("facilityTypes", facilityTypeService.findAll());
+            modelAndView.addObject("rentTypes", rentTypeService.findAll());
+            modelAndView.addObject("facilityDto", facilityDto);
+            return modelAndView;
+        } else
+            return new ModelAndView("views/facility/error.404");
+
+    }
+
+    @PostMapping("/edit")
+    public ModelAndView updateFacility(@Validated @ModelAttribute FacilityDto facilityDto,
+                                       BindingResult bindingResult,
+                                       @PageableDefault(value = 5) Pageable pageable,
+                                       RedirectAttributes redirectAttributes) {
+        new FacilityDto().validate(facilityDto, bindingResult);
+        if (bindingResult.hasFieldErrors()) {
+            ModelAndView modelAndView = new ModelAndView("views/facility/edit");
+            modelAndView.addObject("facilityTypes", facilityTypeService.findAll());
+            modelAndView.addObject("rentTypes", rentTypeService.findAll());
+            return modelAndView;
+        } else {
+            Facility facility = new Facility();
+            BeanUtils.copyProperties(facilityDto, facility);
+            facility.setStatus(0);
+            facilityService.save(facility);
+            ModelAndView modelAndView = new ModelAndView("redirect:/facility");
+            redirectAttributes.addFlashAttribute("message", "edit successfully");
+            return modelAndView;
+        }
+
+    }
+
+    @GetMapping("/delete")
+    public ModelAndView delete(@RequestParam int id,
+                               RedirectAttributes redirectAttributes) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/facility");
+        facilityService.remove(id);
+        return modelAndView;
+    }
+
+
+
 }
