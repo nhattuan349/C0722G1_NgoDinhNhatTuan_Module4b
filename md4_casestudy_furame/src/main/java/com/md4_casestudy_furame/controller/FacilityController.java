@@ -31,7 +31,7 @@ public class FacilityController {
 
 
     @GetMapping("")
-    public ModelAndView showListFacility(@PageableDefault Pageable pageable,
+    public ModelAndView showListFacility(@PageableDefault(value = 5) Pageable pageable,
                                          @RequestParam Optional<String> name,
                                          @RequestParam Optional<String> facilityType,
                                          @RequestParam Optional<String> rentType) {
@@ -57,7 +57,7 @@ public class FacilityController {
     @PostMapping("/create")
     public ModelAndView saveFacility(@Validated @ModelAttribute FacilityDto facilityDto,
                                      BindingResult bindingResult,
-                                     @PageableDefault(value = 2) Pageable pageable,
+                                     @PageableDefault(value = 5) Pageable pageable,
                                      RedirectAttributes redirectAttributes
     ) {
         new FacilityDto().validate(facilityDto, bindingResult);

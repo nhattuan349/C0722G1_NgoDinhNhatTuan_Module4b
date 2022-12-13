@@ -180,35 +180,39 @@
             </td>
             <td>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                        th:data-bs-target="'#staticBackdrop' + ${customer.id}"> Delete
+                <button type="button" class="btn btn-outline-danger deleteButton"
+                        th:attr="onclick=|getId('${customer.id}','${customer.name}')|" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">
+                    Xóa
                 </button>
-                <!-- Modal -->
-                <div class="modal fade" th:id="staticBackdrop + ${customer.id}" data-bs-backdrop="static"
-                     data-bs-keyboard="false"
-                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header"><h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body"> Bạn có muốn xóa khách hàng
-                                <span class="text-info" th:text="${customer.name}"></span>
-                            </div>
-                            <div class="modal-footer"><a th:href="@{/customer/delete(id=${customer.id})}"
-                                                         class="btn btn-outline-success">Xóa</a>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </td>
         </tr>
         </tbody>
     </table>
 
-
+    <!-- Modal -->
+    <form action="/customer/delete">
+        <div class="modal fade" id="deleteModal" data-bs-backdrop="static"
+             data-bs-keyboard="false"
+             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bạn có muốn xoá <span id="deleteName"></span> không?</p>
+                        <input type="text" hidden id="deleteId" name="id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
     <div>
         <a th:href="@{'/customer'(page=${customers.number - 1},name=${name},email=${email}, customerType=${customerType})}"
            th:if="${customers.hasPrevious()}">Previous</a>
@@ -225,7 +229,12 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous">
 </script>
-
+<script>
+    function getId(id, name) {
+        document.getElementById("deleteName").innerText = name;
+        document.getElementById("deleteId").value = id;
+    }
+</script>
 
 
 </body>
