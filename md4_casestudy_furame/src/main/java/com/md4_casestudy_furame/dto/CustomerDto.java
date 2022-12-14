@@ -146,6 +146,32 @@ public class CustomerDto implements Validator {
     public void validate(Object target, Errors errors) {
         CustomerDto customerDto = (CustomerDto) target;
 
+        if (!customerDto.name.matches("^[A-Z][A-Za-zàáãạảăắằẳẵặâấ" +
+                "ầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹý" +
+                "ÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨ" +
+                "ỤỦƯỨỪỬỮỰỲỴỶỸÝ ]*$")) {
+            errors.rejectValue("Name", "name.errors",
+                    "Name không hợp lệ (5-45 kí tự)");
+        }
+
+
+        if (!customerDto.phoneNumber.matches("^0[0-9]{9,11}$")) {
+            errors.rejectValue("phoneNumber", "phoneNumber.errors",
+                    "Phone Number không hợp lệ");
+        }
+
+        if (!customerDto.phoneNumber.matches("^[0-9]{9,10}$")) {
+            errors.rejectValue("idCard", "idCard.errors",
+                    "idCard không hợp lệ");
+        }
+
+        if (!customerDto.email.matches("^[(a-zA-Z0-9-\\_\\.!\\D)]" +
+                "+@[(a-zA-Z)]+\\.[(a-zA-Z)]{2,3}$")) {
+            errors.rejectValue("email", "email.errors",
+                    "Email không hợp lệ");
+        }
 
     }
+
+
 }

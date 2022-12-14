@@ -173,6 +173,14 @@ public class FacilityDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+        FacilityDto facilityDto = (FacilityDto) target;
 
+        if (!facilityDto.name.matches("^[A-Z0-9][0-9A-Za-zàáãạảăắằẳẵặâấ" +
+                "ầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹý" +
+                "ÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨ" +
+                "ỤỦƯỨỪỬỮỰỲỴỶỸÝ ]*$")) {
+            errors.rejectValue("Name", "name.errors",
+                    "Name không hợp lệ (5-45 kí tự)");
+        }
     }
 }
