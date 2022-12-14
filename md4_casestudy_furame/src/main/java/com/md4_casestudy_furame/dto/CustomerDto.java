@@ -144,6 +144,8 @@ public class CustomerDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+        CustomerDto customerDto = (CustomerDto) target;
+
 
     }
 }

@@ -124,8 +124,15 @@
         </nav>
     </div>
 
-    <a style="text-decoration: none" th:href="@{/customer/show-form-create}">Thêm mới khách hàng</a>
+    <button class="btn btn-primary" >
+        <a style="text-decoration: none;color: white" th:href="@{/customer/show-form-create}">Thêm mới khách hàng</a>
+    </button>
+    <button class="btn btn-success" >
+        <a style="text-decoration: none;color: white" th:href="@{/customer/list-still-service}">Danh sách khách hàng còn sử dụng dịch vụ</a>
+    </button>
 
+<!--    <a style="text-decoration: none" th:href="@{/customer/show-form-create}">Thêm mới khách hàng</a>-->
+<!--    <a style="text-decoration: none" th:href="@{/customer/list-still-service}">Danh sách khách hàng còn sử dụng dịch vụ</a>-->
 
     <form th:action="@{/customer}" method="get">
         <input th:type="text" name="name">

@@ -1,5 +1,6 @@
 package com.md4_casestudy_furame.service.impl.contractService;
 
+import com.md4_casestudy_furame.dto.IContractDetailDto;
 import com.md4_casestudy_furame.model.contract.ContractDetail;
 import com.md4_casestudy_furame.repository.contract.IContractDetailRepository;
 import com.md4_casestudy_furame.service.IGeneralService;
@@ -35,5 +36,10 @@ public class ContractDetailService implements IContractDetailService {
     @Override
     public void remove(int id) {
         contractDetailRepository.deleteById(id);
+    }
+
+    @Override
+    public List<IContractDetailDto> showAll(Integer id) {
+        return contractDetailRepository.showAll(id);
     }
 }

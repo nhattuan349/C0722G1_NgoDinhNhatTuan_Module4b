@@ -9,5 +9,5 @@ import org.springframework.data.repository.query.Param;
 public interface ICustomerService extends IGeneralService<Customer> {
 
     Page<Customer> findAllCustomer(Pageable pageable,String name, String email,String customerType);
-
+    Page<Customer> findAllCustomerAndFacility(Pageable pageable,String name,String email,String customerType);
 }

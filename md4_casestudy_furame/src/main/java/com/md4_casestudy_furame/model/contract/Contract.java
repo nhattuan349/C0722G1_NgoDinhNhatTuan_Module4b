@@ -5,6 +5,7 @@ import com.md4_casestudy_furame.model.employee.Employee;
 import com.md4_casestudy_furame.model.facility.Facility;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -12,8 +13,8 @@ public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String start_date;
-    private String end_date;
+    private Date startDate;
+    private Date endDate;
     private String deposit;
     private Integer status;
 
@@ -35,12 +36,14 @@ public class Contract {
     @OneToMany(mappedBy = "contract")
     private Set<ContractDetail> contractDetails;
 
-    public Contract(Integer id, String start_date, String end_date,
+
+
+    public Contract(Integer id, Date startDate, Date endDate,
                     String deposit, Integer status, Employee employee,
                     Customer customer, Facility facility, Set<ContractDetail> contractDetails) {
         this.id = id;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.deposit = deposit;
         this.status = status;
         this.employee = employee;
@@ -57,20 +60,20 @@ public class Contract {
         this.id = id;
     }
 
-    public String getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(String start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public String getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(String end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getDeposit() {

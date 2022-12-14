@@ -9,7 +9,7 @@ public class AttachFacility {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String cost;
+    private Double cost;
     private String unit;
     private String status;
 
@@ -19,12 +19,14 @@ public class AttachFacility {
     public AttachFacility() {
     }
 
-    public AttachFacility(Integer id, String name, String cost, String unit, String status) {
+    public AttachFacility(Integer id, String name, Double cost,
+                          String unit, String status, Set<ContractDetail> contractDetails) {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.unit = unit;
         this.status = status;
+        this.contractDetails = contractDetails;
     }
 
     public Integer getId() {
@@ -43,11 +45,11 @@ public class AttachFacility {
         this.name = name;
     }
 
-    public String getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 

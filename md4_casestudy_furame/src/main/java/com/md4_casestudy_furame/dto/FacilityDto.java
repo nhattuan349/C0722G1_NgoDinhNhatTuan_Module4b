@@ -16,8 +16,7 @@ public class FacilityDto implements Validator {
     private String name;
     @NotBlank(message = "không thể để trống")
     private String area;
-    @NotBlank(message = "không thể để trống")
-    private String cost;
+    private Double cost;
     @NotBlank(message = "không thể để trống")
     private String maxPeople;
     private String standardRoom;
@@ -34,8 +33,8 @@ public class FacilityDto implements Validator {
     public FacilityDto() {
     }
 
-    public FacilityDto(Integer id, String name, String area,
-                       String cost, String maxPeople, String standardRoom,
+    public FacilityDto(Integer id, String name, String area, Double cost,
+                       String maxPeople, String standardRoom,
                        String descriptionOtherConvenience, String poolArea,
                        String numberOfFloors, String facilityFree, Integer status,
                        FacilityType facilityType, RentType rentType, Set<Contract> contracts) {
@@ -79,11 +78,11 @@ public class FacilityDto implements Validator {
         this.area = area;
     }
 
-    public String getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 

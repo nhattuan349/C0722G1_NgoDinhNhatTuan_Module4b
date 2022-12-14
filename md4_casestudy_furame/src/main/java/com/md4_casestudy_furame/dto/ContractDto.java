@@ -10,14 +10,13 @@ import org.springframework.validation.Validator;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Set;
 
 public class ContractDto implements Validator {
     private Integer id;
-    @NotBlank(message = "không thể để trống")
-    private String start_date;
-    @NotBlank(message = "không thể để trống")
-    private String end_date;
+    private Date startDate;
+    private Date endDate;
     @Min(0)
     @NotNull
     private String deposit;
@@ -31,18 +30,20 @@ public class ContractDto implements Validator {
     public ContractDto() {
     }
 
-    public ContractDto(Integer id, String start_date, String end_date,
+    public ContractDto(Integer id, Date startDate, Date endDate,
                        String deposit, Integer status, Employee employee,
-                       Customer customer, Facility facility, Set<ContractDetail> contractDetails) {
+                       Customer customer, Facility facility,
+                       Set<ContractDetail> contractDetails, Double totalPrice) {
         this.id = id;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.deposit = deposit;
         this.status = status;
         this.employee = employee;
         this.customer = customer;
         this.facility = facility;
         this.contractDetails = contractDetails;
+        this.totalPrice = totalPrice;
     }
 
     public Integer getId() {
@@ -53,20 +54,20 @@ public class ContractDto implements Validator {
         this.id = id;
     }
 
-    public String getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(String start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public String getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(String end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getDeposit() {
@@ -126,7 +127,12 @@ public class ContractDto implements Validator {
     }
 
     public void getTotalcost(){
-        this.totalPrice = this.facility.getId().getCost;
+        this.totalPrice = this.facility.getCost();
+        if (this.contractDetails != null) {
+            for (ContractDetail contractDetail : this.contractDetails){
+                this.totalPrice += contractDetail.getQuanlity() * contractDetail.getAttachFacility().getCost();
+            }
+        }
     }
 
     @Override
@@ -136,6 +142,6 @@ public class ContractDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
+        ContractDto contractDto = (ContractDto) target;
     }
 }

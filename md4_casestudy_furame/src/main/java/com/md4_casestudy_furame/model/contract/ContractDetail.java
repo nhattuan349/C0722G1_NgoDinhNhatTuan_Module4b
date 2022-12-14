@@ -7,17 +7,24 @@ public class ContractDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String quanlity;
+    private Double quanlity;
 
     @ManyToOne
     @JoinColumn(name = "attach_facility_id",referencedColumnName = "id")
     private AttachFacility attachFacility;
 
     @ManyToOne
-    @JoinColumn(name = "cotract_id", referencedColumnName = "id")
+    @JoinColumn(name = "contract_id", referencedColumnName = "id")
     private Contract contract;
 
     public ContractDetail() {
+    }
+
+    public ContractDetail(Integer id, Double quanlity, AttachFacility attachFacility, Contract contract) {
+        this.id = id;
+        this.quanlity = quanlity;
+        this.attachFacility = attachFacility;
+        this.contract = contract;
     }
 
     public Integer getId() {
@@ -28,11 +35,11 @@ public class ContractDetail {
         this.id = id;
     }
 
-    public String getQuanlity() {
+    public Double getQuanlity() {
         return quanlity;
     }
 
-    public void setQuanlity(String quanlity) {
+    public void setQuanlity(Double quanlity) {
         this.quanlity = quanlity;
     }
 

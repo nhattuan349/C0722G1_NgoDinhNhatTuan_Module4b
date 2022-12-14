@@ -26,6 +26,20 @@ public class CustomerController {
     @Autowired
     private ICustomerTypeService customerTypeService;
 
+    @GetMapping("/list-still-service")
+    public ModelAndView showListStillService(@PageableDefault(value = 5)Pageable pageable,
+                                         @RequestParam Optional<String> name,
+                                         @RequestParam Optional<String> email,
+                                         @RequestParam Optional<String> customerType){
+        ModelAndView modelAndView = new ModelAndView("views/customer/list.still.service");
+        modelAndView.addObject("name1", name.orElse(""));
+        modelAndView.addObject("email1", email.orElse(""));
+        modelAndView.addObject("customerType", customerType.orElse(""));
+        modelAndView.addObject("customers", customerService.findAllCustomerAndFacility(pageable, name.orElse(""), email.orElse(""), customerType.orElse("")));
+        modelAndView.addObject("customerTypes", customerTypeService.findAll());
+        return modelAndView;
+    }
+
     @GetMapping("")
     public ModelAndView showListCustomer(@PageableDefault(value = 5)Pageable pageable,
                                          @RequestParam Optional<String> name,

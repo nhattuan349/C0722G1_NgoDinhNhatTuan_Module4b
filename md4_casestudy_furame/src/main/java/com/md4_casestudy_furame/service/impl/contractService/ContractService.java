@@ -1,5 +1,6 @@
 package com.md4_casestudy_furame.service.impl.contractService;
 
+import com.md4_casestudy_furame.dto.ContractDto;
 import com.md4_casestudy_furame.model.contract.Contract;
 import com.md4_casestudy_furame.repository.contract.IContractRepository;
 import com.md4_casestudy_furame.service.contract.IContractService;
@@ -37,7 +38,12 @@ public class ContractService implements IContractService {
     }
 
     @Override
-    public Page<Contract> getList(Pageable pageable) {
-        return contractRepository.getList(pageable);
+    public Page<Contract> findAllContract(Pageable pageable) {
+        return contractRepository.findAllContract(pageable);
+    }
+
+    @Override
+    public Page<Contract> findAll(Pageable pageable) {
+        return contractRepository.findAll(pageable);
     }
 }

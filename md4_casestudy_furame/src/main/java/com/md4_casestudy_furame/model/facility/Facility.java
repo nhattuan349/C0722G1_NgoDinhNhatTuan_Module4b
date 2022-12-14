@@ -12,7 +12,7 @@ public class Facility {
     private Integer id;
     private String name;
     private String area;
-    private String cost;
+    private Double cost;
     private String maxPeople;
     private String standardRoom;
     private String descriptionOtherConvenience;
@@ -35,9 +35,10 @@ public class Facility {
     public Facility() {
     }
 
-    public Facility(Integer id, String name, String area, String cost,
-                    String maxPeople, String standardRoom, String descriptionOtherConvenience,
-                    String poolArea, String numberOfFloors, String facilityFree, Integer status,
+    public Facility(Integer id, String name, String area,
+                    Double cost, String maxPeople, String standardRoom,
+                    String descriptionOtherConvenience, String poolArea,
+                    String numberOfFloors, String facilityFree, Integer status,
                     FacilityType facilityType, RentType rentType, Set<Contract> contracts) {
         this.id = id;
         this.name = name;
@@ -79,11 +80,11 @@ public class Facility {
         this.area = area;
     }
 
-    public String getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 
