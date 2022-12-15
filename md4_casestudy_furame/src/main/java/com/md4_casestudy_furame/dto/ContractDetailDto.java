@@ -56,6 +56,8 @@ public class ContractDetailDto implements Validator {
         this.contract = contract;
     }
 
+
+
     @Override
     public boolean supports(Class<?> clazz) {
         return false;

@@ -388,16 +388,11 @@
         document.getElementById("endDate").min = startDate.value;
         document.getElementById("endDateForm").style.display = "block";
     }
-</script>
 
-
-<script>
     function addContractdetail(id) {
         document.getElementById("contractId").value = id;
     }
-</script>
 
-<script>
     function showAttachDetail(id) {
         $("#showSlow").empty();
         $("#note").show();
@@ -424,7 +419,8 @@
                         tr.push("</tr>");
                     }
                     $("#showSlow").append(tr.join(""));
-                    $("#showSlow").show();
+                    $("#showSlow").hide();
+                    $("#showSlow").fadeIn(4000);
                 }
             }
         })

@@ -9,7 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
+
+@Repository
 public interface IContractRepository extends JpaRepository<Contract, Integer> {
 
 //    @Query(value = "select * from `contract`  where status = 1 order by id desc ", nativeQuery = true,

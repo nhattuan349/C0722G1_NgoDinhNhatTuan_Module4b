@@ -10,15 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+@Repository
 public interface IContractDetailRepository extends JpaRepository<ContractDetail, Integer> {
 
     @Query(value = "select atf.name as nameDto, atf.unit as unitDto, " +
                             "sum(ifnull(ctrd.quanlity, 0)) as quantityDto, " +
                             "atf.status as statusDto, atf.cost as costDto " +
-                    "from contract_detail ctrd " +
-                    "join attach_facility atf on ctrd.attach_facility_id = atf.id " +
-                    "where ctrd.id =:idFind " +
+                    "from `contract_detail` ctrd " +
+                    "join `attach_facility` atf on ctrd.attach_facility_id = atf.id " +
+                    "where ctrd.contract_id =:idFind " +
                     "group by atf.id ", nativeQuery = true)
     List<IContractDetailDto> showAll(@Param("idFind") Integer id);
 
